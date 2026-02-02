@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Stock - Pharmacy Portal</title>
+    <link rel="stylesheet" href="/pharmacist/style.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">Pharmacy Portal</div>
+        <ul class="nav-menu">
+            <li><a href="/pharmacist/index.html">🏠 Home</a></li>
+            <li><a href="/pharmacist/search.html">🔍 Search</a></li>
+            <li><a href="/pharmacist/add-stock.html" class="active">📦 Add Stock</a></li>
+            <li><a href="/pharmacist/orders.html">🛒 Orders</a></li>
+            <li><a href="/pharmacist/performance.html">📈 Performance</a></li>
+            <li><a id="logoutBtn" class="login-btn" style="display:none;"><span>🚪</span> Logout</a></li>
+        </ul>
+    </nav>
+
+    <!-- LOGOUT POPUP -->
+    <div id="logoutConfirmBox" class="confirm-box">
+        <div class="confirm-content">
+            <h2>Are you sure you want to logout?</h2>
+            <div class="confirm-buttons" style="margin-top:1rem;">
+                <button id="confirmLogoutYes" style="background:var(--primary); color:white;">Yes</button>
+                <button id="confirmLogoutNo" style="background:var(--border-light); color:black;">No</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="errorPopup" class="confirm-box">
+        <div class="confirm-content">
+            <h2 id="errorMessage" style="color:red;">Error</h2>
+            <button id="errorOk" style="margin-top:1rem;">OK</button>
+        </div>
+    </div>
+
+
+    <section class="page">
+        <h1 style="text-align: center; margin-bottom: 2rem;">Add New Medicine</h1>
+
+        <div class="login-box"
+            style="margin: 0 auto; background: var(--bg-card); padding: 2rem; border-radius: var(--radius-md); box-shadow: var(--shadow-md);">
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div style="grid-column: span 2;">
+                    <label style="display:block; margin-bottom:0.5rem; font-weight:600;">Medicine Name</label>
+                    <input id="medicineName" type="text" placeholder="e.g. Paracetamol 500mg" class="stock-input">
+                </div>
+
+                <div>
+                    <label style="display:block; margin-bottom:0.5rem; font-weight:600;">Quantity</label>
+                    <input id="quantity" type="number" placeholder="e.g. 100" class="stock-input">
+                </div>
+
+                <div>
+                    <label style="display:block; margin-bottom:0.5rem; font-weight:600;">Batch No.</label>
+                    <input id="batchNo" type="text" placeholder="e.g. BATCH-001" class="stock-input">
+                </div>
+
+                <div>
+                    <label style="display:block; margin-bottom:0.5rem; font-weight:600;">Price (₹)</label>
+                    <input id="price" type="number" step="0.01" placeholder="e.g. 150.00" class="stock-input">
+                </div>
+
+                <div>
+                    <label style="display:block; margin-bottom:0.5rem; font-weight:600;">Image URL</label>
+                    <input id="image" type="text" placeholder="http://example.com/image.jpg" class="stock-input">
+                </div>
+
+                <div>
+                    <label style="display:block; margin-bottom:0.5rem; font-weight:600;">Category</label>
+                    <input id="category" type="text" placeholder="e.g. Pain Relief" class="stock-input">
+                </div>
+
+                <div style="grid-column: span 2;">
+                    <label style="display:block; margin-bottom:0.5rem; font-weight:600;">Description</label>
+                    <textarea id="description" rows="3" placeholder="Brief description of the medicine..."
+                        class="stock-input"
+                        style="width:100%; border:1px solid var(--border-light); border-radius:var(--radius-sm); padding:0.5rem; background:var(--bg-body);"></textarea>
+                </div>
+            </div>
+
+            <button id="addStockBtn" class="btn-primary" style="margin-top: 1rem;">Add Stock</button>
+        </div>
+    </section>
+
+    <script src="/pharmacist/script.js"></script>
+</body>
+
+</html>

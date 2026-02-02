@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search - medAssistNow</title>
+    <link rel="stylesheet" href="/user/style.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">medAssistNow</div>
+        <ul class="nav-menu">
+            <li><a href="/user/home.html"><span>🏠</span> Home</a></li>
+            <li><a href="/user/cart.html"><span>🛒</span> Cart</a></li>
+            <li><a href="/user/pharmacies.html"><span>📍</span> Pharmacies</a></li>
+            <li><a id="loginBtn" class="login-btn" href="/user/login.html"><span>👤</span> Log In</a></li>
+            <li><a id="logoutBtn" class="login-btn" style="display:none;"><span>🚪</span> Logout</a></li>
+        </ul>
+    </nav>
+
+    <section class="page">
+        <h1 style="text-align:center; margin-bottom:2rem;">Search Medicines</h1>
+
+        <div class="search-bar">
+            <input type="text" id="searchBox" placeholder="Search for medicines..." onkeyup="searchOnHome()">
+            <!-- reusing searchOnHome or similar -->
+            <button onclick="searchOnHome()">Search</button>
+        </div>
+
+        <div id="homeResults" class="product-grid"></div>
+        <!-- reusing homeResults ID for compatibility with user/script.js if it uses that -->
+    </section>
+
+    <script src="/user/script.js"></script>
+</body>
+
+</html>

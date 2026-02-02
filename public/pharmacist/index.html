@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmacy Portal</title>
+    <link rel="stylesheet" href="/pharmacist/style.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">Pharmacy Portal</div>
+        <ul class="nav-menu">
+            <li><a href="/pharmacist/index.html" class="active">🏠 Home</a></li>
+            <li><a href="/pharmacist/search.html">🔍 Search</a></li>
+            <li><a href="/pharmacist/add-stock.html">📦 Add Stock</a></li>
+            <li><a href="/pharmacist/orders.html">🛒 Orders</a></li>
+            <li><a href="/pharmacist/performance.html">📈 Performance</a></li>
+            <li><a id="logoutBtn" class="login-btn" style="display:none;"><span>🚪</span>Logout</a></li>
+        </ul>
+    </nav>
+
+    <!-- LOGOUT POPUP -->
+    <div id="logoutConfirmBox" class="confirm-box">
+        <div class="confirm-content">
+            <h2>Are you sure you want to logout?</h2>
+            <div class="confirm-buttons" style="margin-top:1rem;">
+                <button id="confirmLogoutYes" style="background:var(--primary); color:white;">Yes</button>
+                <button id="confirmLogoutNo" style="background:var(--border-light); color:black;">No</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="errorPopup" class="confirm-box">
+        <div class="confirm-content">
+            <h2 id="errorMessage" style="color:red;">Error</h2>
+            <button id="errorOk" style="margin-top:1rem;">OK</button>
+        </div>
+    </div>
+
+    <section class="page">
+        <h1 style="margin-bottom: 2rem;">Welcome, Pharmacist!</h1>
+
+        <div class="product-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+            <div class="product-card" onclick="window.location='/pharmacist/orders.html'"
+                style="cursor:pointer; border:2px solid var(--primary-light);">
+                <div style="font-size:3rem; margin-bottom:1rem;">🛒</div>
+                <h3>Manage Orders</h3>
+                <p style="color:var(--text-muted);">View incoming orders and mark them as ready/active.</p>
+            </div>
+
+            <div class="product-card" onclick="window.location='/pharmacist/add-stock.html'"
+                style="cursor:pointer; border:2px solid var(--primary-light);">
+                <div style="font-size:3rem; margin-bottom:1rem;">📦</div>
+                <h3>Manage Stock</h3>
+                <p style="color:var(--text-muted);">Update inventory and add new medicines.</p>
+            </div>
+
+            <div class="product-card" onclick="window.location='/pharmacist/performance.html'"
+                style="cursor:pointer; border:2px solid var(--primary-light);">
+                <div style="font-size:3rem; margin-bottom:1rem;">📈</div>
+                <h3>View Performance</h3>
+                <p style="color:var(--text-muted);">Check sales stats and delivery metrics.</p>
+            </div>
+        </div>
+    </section>
+
+    <script src="/pharmacist/script.js"></script>
+</body>
+
+</html>

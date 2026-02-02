@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earnings - Delivery Partner</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">medAssistNow</div>
+        <ul class="nav-menu">
+            <li><a href="index.html">🏠 Home</a></li>
+            <li><a href="earnings.html" class="active">💲 Earnings</a></li>
+            <li><a href="/delivery/history.html">📜 History</a></li>
+            <li><a id="logoutBtn" class="logout-btn">📦 Logout</a></li>
+        </ul>
+    </nav>
+
+    <!-- LOGOUT POPUP -->
+    <div id="logoutConfirmBox" class="confirm-box">
+        <div class="confirm-content">
+            <h2>Are you sure you want to logout?</h2>
+            <div class="confirm-buttons" style="margin-top:1rem;">
+                <button id="confirmLogoutYes" style="background:var(--primary); color:white;">Yes</button>
+                <button id="confirmLogoutNo" style="background:var(--border-light); color:black;">No</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="errorPopup" class="confirm-box">
+        <div class="confirm-content">
+            <h2 id="errorMessage" style="color:red;">Error</h2>
+            <button id="errorOk" style="margin-top:1rem;">OK</button>
+        </div>
+    </div>
+
+
+    <section class="page">
+        <h1 style="text-align: center; margin-bottom: 2rem;">Your Earnings</h1>
+
+        <div class="earnings-box" style="text-align: center;">
+            <h2 style="color: var(--primary); font-size: 2.5rem; margin-bottom: 0.5rem;">₹<span
+                    id="todayEarnings">0</span></h2>
+            <p style="color: var(--text-muted);">Today's Earnings</p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-top: 2rem;">
+                <div>
+                    <h3 style="font-size: 1.5rem;" id="todayDeliveries">0</h3>
+                    <p style="font-size: 0.9rem;">Deliveries Today</p>
+                </div>
+                <div>
+                    <h3 style="font-size: 1.5rem;">₹<span id="weekEarnings">0</span></h3>
+                    <p style="font-size: 0.9rem;">This Week</p>
+                </div>
+                <div>
+                    <h3 style="font-size: 1.5rem;">₹<span id="lifetimeEarnings">0</span></h3>
+                    <p style="font-size: 0.9rem;">Lifetime</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="earningsList" style="margin-top: 2rem;"></div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

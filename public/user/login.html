@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login / Signup - medAssistNow</title>
+    <link rel="stylesheet" href="/user/style.css">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">medAssistNow</div>
+        <ul class="nav-menu">
+            <li><a href="home.html"><span>🏠</span> Home</a></li>
+            <li><a href="cart.html"><span>🛒</span> Cart</a></li>
+            <li><a href="pharmacies.html"><span>📍</span> Pharmacies</a></li>
+            <li><a id="loginBtn" class="login-btn" href="login.html"><span>👤</span> Log In</a></li>
+            <li><a id="logoutBtn" class="login-btn" style="display:none;"><span>🚪</span> Logout</a></li>
+        </ul>
+    </nav>
+
+    <!-- POPUPS -->
+    <div id="logoutConfirmBox" class="confirm-box">
+        <div class="confirm-content">
+            <h2>Are you sure you want to logout?</h2>
+            <div class="confirm-buttons" style="margin-top:1rem;">
+                <button id="confirmLogoutYes" style="background:var(--primary); color:white;">Yes</button>
+                <button id="confirmLogoutNo" style="background:var(--border-light); color:black;">No</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="loginSuccessBox" class="confirm-box">
+        <div class="confirm-content">
+            <h2>Login Successful!</h2>
+            <button id="loginSuccessOk"
+                style="margin-top:1rem; background:var(--status-ready); color:white;">OK</button>
+        </div>
+    </div>
+
+    <div id="errorPopup" class="confirm-box">
+        <div class="confirm-content">
+            <h2 id="errorMessage" style="color:red;">Error</h2>
+            <button id="errorOk" style="margin-top:1rem;">OK</button>
+        </div>
+    </div>
+
+
+    <!-- MAIN CONTENT -->
+    <section id="login" class="page visible">
+        <h1 style="text-align: center; margin-bottom: 2rem;">Select Login / Signup Type</h1>
+
+        <div class="login-cards">
+            <div class="login-card">
+                <div class="icon">👤</div>
+                <h2>User</h2>
+                <button onclick="showLoginForm('user')" class="login-btn-small">Login</button>
+                <button onclick="showSignupForm('user')" class="signup-btn-small">Signup</button>
+            </div>
+
+            <div class="login-card">
+                <div class="icon">💊</div>
+                <h2>Pharmacist</h2>
+                <button onclick="showLoginForm('pharmacist')" class="login-btn-small">Login</button>
+                <button onclick="showSignupForm('pharmacist'); getCurrentLocationForSignup();"
+                    class="signup-btn-small">Signup</button>
+            </div>
+
+            <div class="login-card">
+                <div class="icon">🚚</div>
+                <h2>Delivery</h2>
+                <button onclick="showLoginForm('delivery')" class="login-btn-small">Login</button>
+                <button onclick="showSignupForm('delivery')" class="signup-btn-small">Signup</button>
+            </div>
+        </div>
+
+
+        <!-- LOGIN FORM -->
+        <div id="roleLoginForm" class="login-box" style="display:none;">
+            <h2 id="roleTitle">Login</h2>
+
+            <div class="form-group">
+                <label style="display:block; margin-bottom:0.5rem; font-weight:600;">Email</label>
+                <input type="email" id="loginEmail" placeholder="Enter your email">
+            </div>
+
+            <div class="form-group">
+                <label style="display:block; margin-bottom:0.5rem; font-weight:600;">Password</label>
+                <input type="password" id="loginPassword" placeholder="Enter your password">
+            </div>
+
+            <button onclick="loginUser()">Login</button>
+            <p class="link-text" onclick="backToRoleCards()">← Back to Selection</p>
+        </div>
+
+
+        <!-- SIGNUP FORM -->
+        <div id="roleSignupForm" class="login-box" style="display:none;">
+            <h2 id="signupTitle">Signup</h2>
+            <div id="signupFields"></div> <!-- Fields injected by script -->
+            <button onclick="signupUser()">Create Account</button>
+            <p class="link-text" onclick="backToRoleCards()">← Back to Selection</p>
+        </div>
+
+    </section>
+
+    <script src="/user/script.js"></script>
+</body>
+
+</html>

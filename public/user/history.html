@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Order History - medAssistNow</title>
+    <link rel="stylesheet" href="/user/style.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">medAssistNow</div>
+        <ul class="nav-menu">
+            <li><a href="/user/home.html"><span>🏠</span> Home</a></li>
+            <li><a href="/user/cart.html"><span>🛒</span> Cart</a></li>
+            <li><a href="/user/pharmacies.html"><span>📍</span> Pharmacies</a></li>
+            <li><a href="/user/history.html" class="active"><span>📜</span> Orders</a></li>
+            <li><a id="loginBtn" class="login-btn" href="/user/login.html"><span>👤</span> Log In</a></li>
+            <li><a id="logoutBtn" class="login-btn" style="display:none;"><span>🚪</span> Logout</a></li>
+        </ul>
+    </nav>
+
+    <section class="page">
+        <h1 style="text-align: center; margin-bottom: 2rem;">Your Order History</h1>
+
+        <div id="historyList" class="product-grid" style="display: flex; flex-direction: column; gap: 1rem;">
+            <!-- Orders injected here -->
+        </div>
+    </section>
+
+    <!-- LOGOUT POPUP -->
+    <div id="logoutConfirmBox" class="confirm-box">
+        <div class="confirm-content">
+            <h2>Are you sure you want to logout?</h2>
+            <div class="confirm-buttons" style="margin-top:1rem;">
+                <button id="confirmLogoutYes" style="background:var(--primary); color:white;">Yes</button>
+                <button id="confirmLogoutNo" style="background:var(--border-light); color:black;">No</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="errorPopup" class="confirm-box">
+        <div class="confirm-content">
+            <h2 id="errorMessage" style="color:red;">Error</h2>
+            <button id="errorOk" style="margin-top:1rem;">OK</button>
+        </div>
+    </div>
+
+    <script src="/user/script.js"></script>
+
+    <script>
+        async function loadUserHistory() {
+            const token = localStorage.getItem("token");
+
+            const res = await fetch("/api/order/history/user", {
+                headers: { "Authorization": "Bearer " + token }
+            });
+
+            const data = await res.json();
+            const container = document.getElementById("historyList");
+
+            if (!data.length) {
+                container.innerHTML = `
+            <div class="empty-cart">
+                <h2>No past orders found</h2>
+                <button onclick="window.location='/user/home.html'" class="btn-primary" style="margin-top:1rem;">Start Shopping</button>
+            </div>`;
+                return;
+            }
+
+            container.innerHTML = data.map(o => {
+                // Status color logic
+                let statusColor = "var(--text-muted)";
+                if (o.status === "pending") statusColor = "var(--status-pending)";
+                if (o.status === "ready") statusColor = "var(--status-ready)";
+                if (o.status === "out-for-delivery") statusColor = "var(--status-active)";
+                if (o.status === "delivered") statusColor = "var(--status-done)";
+
+                return `
+        <div class="product-card" style="flex-direction: column; align-items: flex-start; max-width: 800px; margin: 0 auto; width: 100%;">
+            <div style="display:flex; justify-content:space-between; width:100%; border-bottom:1px solid var(--border-light); padding-bottom:0.5rem; margin-bottom:0.5rem;">
+                <h3 style="margin:0;">Order #${o._id.slice(-6).toUpperCase()}</h3>
+                <span style="font-weight:bold; color:${statusColor}; text-transform: capitalize;">${o.status.replace(/-/g, ' ')}</span>
+            </div>
+            
+            <p style="color:var(--text-muted); font-size:0.9rem;">Placed: ${new Date(o.orderedAt).toLocaleString()}</p>
+            
+            <ul style="margin-top:1rem; width:100%;">
+                ${o.items.map(i => `
+                    <li style="display:flex; justify-content:space-between; padding:0.5rem 0; border-bottom:1px dashed var(--border-light);">
+                        <span>${i.medicineName} <small>x${i.quantity}</small></span>
+                        <span>₹${i.price * i.quantity}</span>
+                    </li>
+                `).join("")}
+            </ul>
+
+            <div style="margin-top:1rem; align-self: flex-end; font-weight:bold; font-size:1.1rem;">
+                Total: ₹${o.totalAmount || o.items.reduce((s, i) => s + (i.price || 0) * i.quantity, 0)}
+            </div>
+        </div>
+    `}).join("");
+        }
+
+        window.addEventListener("DOMContentLoaded", loadUserHistory);
+    </script>
+
+</body>
+
+</html>

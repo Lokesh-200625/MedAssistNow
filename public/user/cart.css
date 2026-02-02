@@ -1,0 +1,111 @@
+.cart-page {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 10px;
+}
+
+.cart-page h1 {
+    font-size: 32px;
+    color: #00695c;
+    margin-bottom: 25px;
+}
+
+
+
+/* CART LIST (ul stays intact) */
+.cart-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+
+/* EACH CART ITEM (li stays intact) */
+.cart-list li {
+    background: #fff;
+    padding: 18px 20px;
+    border-radius: 14px;
+    border: 1px solid #e2f3f1;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cart-list li:hover {
+    box-shadow: 0 7px 26px rgba(0,0,0,0.15);
+}
+
+
+
+/* EMPTY CART SECTION */
+.empty-cart {
+    display: none;
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.empty-cart img {
+    width: 200px;
+    opacity: .6;
+    margin-bottom: 12px;
+}
+
+.empty-cart h2 {
+    font-size: 24px;
+    color: #00897b;
+}
+
+.empty-cart p {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.empty-cart button {
+    background: #00a69c;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 12px;
+}
+
+
+
+/* STICKY CHECKOUT BAR */
+.checkout-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border-top: 2px solid #dff5f2;
+    padding: 14px 18px;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.12);
+}
+
+.btn-primary {
+    background: #009688;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 12px;
+}
+
+.btn-secondary {
+    background: #e0f3f1;
+    color: #00695c;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 12px;
+}
+
+@media (max-width: 768px) {
+    .checkout-bar {
+        flex-direction: column;
+        gap: 10px;
+    }
+}

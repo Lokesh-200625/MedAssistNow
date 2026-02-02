@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - medAssistNow</title>
+    <link rel="stylesheet" href="/user/style.css">
+    <link rel="stylesheet" href="/user/home.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">medAssistNow</div>
+        <ul class="nav-menu">
+            <li><a href="/user/home.html" class="active"><span>🏠</span> Home</a></li>
+            <li><a href="/user/cart.html"><span>🛒</span> Cart</a></li>
+            <li><a href="/user/pharmacies.html"><span>📍</span> Pharmacies</a></li>
+            <li><a href="/user/history.html"><span>📜</span> Orders</a></li>
+            <li><a id="loginBtn" class="login-btn" href="/user/login.html"><span>👤</span> Log In</a></li>
+            <li><a id="logoutBtn" class="login-btn"><span>🚪</span> Logout</a></li>
+        </ul>
+    </nav>
+    <div id="scrollProgress" class="scroll-progress"></div>
+
+    <!-- POPUPS -->
+    <div id="logoutConfirmBox" class="confirm-box">
+        <div class="confirm-content">
+            <h2>Are you sure you want to logout?</h2>
+            <div class="confirm-buttons">
+                <button id="confirmLogoutYes">Yes</button>
+                <button id="confirmLogoutNo">No</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="errorPopup" class="confirm-box">
+        <div class="confirm-content">
+            <h2 id="errorMessage">Error</h2>
+            <button id="errorOk">OK</button>
+        </div>
+    </div>
+
+
+    <!-- HERO SECTION -->
+<section class="hero">
+  <div class="hero-content">
+
+    <h1 class="hero-title">
+      Order Medicines Easily <span class="pill-icon">💊</span>
+    </h1>
+
+    <p class="hero-subtitle">
+      Fast delivery from verified local pharmacies.
+    </p>
+
+    <!-- Search Wrapper (FUNCTIONAL – DO NOT CHANGE IDs) -->
+    <div class="search-wrapper">
+      <div class="search-bar-hero">
+        <input
+          type="text"
+          id="homeSearchBox"
+          placeholder="Search for medicines..."
+          autocomplete="off"
+        />
+        <button onclick="searchOnHome()">Search</button>
+      </div>
+
+      <!-- Dropdown -->
+      <div id="searchDropdown" class="search-dropdown"></div>
+    </div>
+
+    <div class="hero-actions">
+      <button class="cta-btn" onclick="searchOnHome()">🔎 Search Medicines</button>
+      <button class="cta-btn-secondary" onclick="window.location='/user/pharmacies.html'">📍 Find Pharmacies</button>
+    </div>
+
+    <section class="services reveal">
+      <div class="service-controls">
+        <button class="scroll-btn left" onclick="scrollServices(-1)">‹</button>
+        <div class="service-scroller" id="serviceScroller">
+          <div class="service-pill" onclick="searchCategory('Medicine')">
+            <span class="pill-emoji">💊</span>
+            <div class="pill-text">
+              <div class="pill-title">Medicine</div>
+              <div class="pill-sub">Save 25%</div>
+            </div>
+          </div>
+          <div class="service-pill" onclick="searchCategory('Lab Tests')">
+            <span class="pill-emoji">🧪</span>
+            <div class="pill-text">
+              <div class="pill-title">Lab Tests</div>
+              <div class="pill-sub">Up to 70% off</div>
+            </div>
+          </div>
+          <div class="service-pill" onclick="searchCategory('Doctor Consult')">
+            <span class="pill-emoji">👨‍⚕️</span>
+            <div class="pill-text">
+              <div class="pill-title">Doctor Consult</div>
+              <div class="pill-sub">From ₹199</div>
+            </div>
+          </div>
+          <div class="service-pill" onclick="searchCategory('Branded Substitute')">
+            <span class="pill-emoji">💱</span>
+            <div class="pill-text">
+              <div class="pill-title">Branded Substitute</div>
+              <div class="pill-sub">Up to 50% off</div>
+            </div>
+          </div>
+          <div class="service-pill" onclick="searchCategory('Healthcare')">
+            <span class="pill-emoji">🧴</span>
+            <div class="pill-text">
+              <div class="pill-title">Healthcare</div>
+              <div class="pill-sub">Up to 60% off</div>
+            </div>
+          </div>
+          <div class="service-pill" onclick="searchCategory('Health Blogs')">
+            <span class="pill-emoji">❤️</span>
+            <div class="pill-text">
+              <div class="pill-title">Health Blogs</div>
+              <div class="pill-sub">Tips & Guides</div>
+            </div>
+          </div>
+          <div class="service-pill" onclick="window.location='/user/login.html'">
+            <span class="pill-emoji">➕</span>
+            <div class="pill-text">
+              <div class="pill-title">Plus</div>
+              <div class="pill-sub">Save 5% extra</div>
+            </div>
+          </div>
+          <div class="service-pill" onclick="searchCategory('Offers')">
+            <span class="pill-emoji">🎁</span>
+            <div class="pill-text">
+              <div class="pill-title">Offers</div>
+              <div class="pill-sub">Limited-time</div>
+            </div>
+          </div>
+        </div>
+        <button class="scroll-btn right" onclick="scrollServices(1)">›</button>
+      </div>
+    </section>
+
+  </div>
+  <div class="hero-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+</section>
+
+<!-- Trust Strip -->
+<section class="trust-strip">
+  <div class="trust-wrap">
+    <div class="trust-item">✔️ Licensed Pharmacies</div>
+    <div class="trust-item">🔒 Secure Payments</div>
+    <div class="trust-item">⏱️ 60-min Delivery</div>
+    <div class="trust-item">📦 Easy Returns</div>
+  </div>
+</section>
+
+
+
+    <section class="page">
+
+
+
+        <!-- AVAILABLE MEDICINES -->
+        <div id="homeResults" class="product-grid"></div>
+
+
+        <!-- FEATURES -->
+        <div class="features reveal stagger">
+            <div class="feature-card-big">
+                <div class="feature-icon">🚚</div>
+                <h3>Fast Delivery</h3>
+                <p>Your medicines delivered in under 60 minutes.</p>
+            </div>
+            <div class="feature-card-big">
+                <div class="feature-icon">�</div>
+                <h3>Nearby Pharmacies</h3>
+                <p>Find trusted stores close to your location.</p>
+            </div>
+            <div class="feature-card-big">
+                <div class="feature-icon">✔️</div>
+                <h3>Verified Suppliers</h3>
+                <p>Only licensed and registered pharmacies.</p>
+            </div>
+            <div class="feature-card-big">
+                <div class="feature-icon">�</div>
+                <h3>Secure Payments</h3>
+                <p>Encrypted and safe checkout experiences.</p>
+            </div>
+        </div>
+
+        <!-- FEATURED MEDICINES -->
+        <section class="featured reveal">
+          <h2 class="section-title">Featured Medicines</h2>
+          <div class="featured-grid reveal stagger">
+            <div class="featured-card" onclick="searchCategory('Pain Relief')">Pain Relief</div>
+            <div class="featured-card" onclick="searchCategory('Antibiotics')">Antibiotics</div>
+            <div class="featured-card" onclick="searchCategory('Vitamins')">Vitamins</div>
+            <div class="featured-card" onclick="searchCategory('Digestive Care')">Digestive Care</div>
+            <div class="featured-card" onclick="searchCategory('Cold & Flu')">Cold &amp; Flu</div>
+            <div class="featured-card" onclick="searchCategory('Diabetes Care')">Diabetes Care</div>
+          </div>
+        </section>
+
+        <!-- How It Works -->
+        <section class="how-it-works reveal">
+          <h2 class="section-title">How It Works</h2>
+          <div class="steps reveal stagger">
+            <div class="step">
+              <div class="step-icon">🔎</div>
+              <div class="step-title">Search</div>
+              <div class="step-desc">Find medicines and categories instantly.</div>
+            </div>
+            <div class="step">
+              <div class="step-icon">🛒</div>
+              <div class="step-title">Add to Cart</div>
+              <div class="step-desc">Select items and manage quantities.</div>
+            </div>
+            <div class="step">
+              <div class="step-icon">📦</div>
+              <div class="step-title">Place Order</div>
+              <div class="step-desc">Pay securely and track status.</div>
+            </div>
+            <div class="step">
+              <div class="step-icon">🚚</div>
+              <div class="step-title">Get Delivered</div>
+              <div class="step-desc">Fast delivery to your doorstep.</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- POPULAR CATEGORIES (Dynamic) -->
+        <h2 class="section-title reveal">Popular Categories</h2>
+        <div id="categoryList" class="category-grid reveal">
+          <p class="category-loading">Loading categories...</p>
+        </div>
+
+        <!-- RECENT ORDERS -->
+        <h2 class="section-title reveal">Recent Orders</h2>
+        <div id="recentOrders" class="reveal"></div>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        © 2025 medAssistNow • Privacy • Terms • Help
+    </footer>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/user/script.js"></script>
+
+    <script>
+        function searchCategory(q) {
+            document.getElementById("homeSearchBox").value = q;
+            searchOnHome();
+        }
+
+        if (typeof loadRecentOrders === "function") {
+            loadRecentOrders();
+        }
+        const revealEls = document.querySelectorAll('.reveal');
+        const obs = new IntersectionObserver((entries) => {
+          entries.forEach(e => {
+            if (e.isIntersecting) {
+              e.target.classList.add('in');
+            } else {
+              e.target.classList.remove('in');
+            }
+          });
+        }, { threshold: 0.08 });
+        revealEls.forEach(el => obs.observe(el));
+
+        const blobs = document.querySelectorAll('.blob');
+        const progressEl = document.getElementById('scrollProgress');
+        const nav = document.querySelector('.navbar');
+        function scrollServices(dir) {
+          const scroller = document.getElementById('serviceScroller');
+          if (!scroller) return;
+          const amount = Math.min(360, scroller.clientWidth * 0.8);
+          scroller.scrollBy({ left: amount * dir, behavior: 'smooth' });
+        }
+        window.addEventListener('scroll', () => {
+          const y = window.scrollY || 0;
+          blobs.forEach((b, i) => {
+            const xMove = (i + 1) * 0.3;
+            const yMove = (i + 1) * 0.2;
+            b.style.transform = `translate(${y * xMove}px, ${-y * yMove}px)`;
+          });
+          const doc = document.documentElement;
+          const progress = (doc.scrollTop) / (doc.scrollHeight - doc.clientHeight);
+          if (progressEl) progressEl.style.width = (progress * 100) + "%";
+          if (nav) nav.classList.toggle('scrolled', y > 12);
+        }, { passive: true });
+    </script>
+
+</body>
+
+</html>

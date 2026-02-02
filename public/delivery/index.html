@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Delivery Partner</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">medAssistNow</div>
+        <ul class="nav-menu">
+            <li><a href="index.html" class="active">🏠 Home</a></li>
+            <li><a href="earnings.html">💲 Earnings</a></li>
+            <li><a href="/delivery/history.html">📜 History</a></li>
+            <li><a id="logoutBtn" class="logout-btn">📦 Logout</a></li>
+        </ul>
+    </nav>
+
+    <!-- LOGOUT POPUP -->
+    <div id="logoutConfirmBox" class="confirm-box">
+        <div class="confirm-content">
+            <h2>Are you sure you want to logout?</h2>
+            <div class="confirm-buttons" style="margin-top:1rem;">
+                <button id="confirmLogoutYes" style="background:var(--primary); color:white;">Yes</button>
+                <button id="confirmLogoutNo" style="background:var(--border-light); color:black;">No</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="errorPopup" class="confirm-box">
+        <div class="confirm-content">
+            <h2 id="errorMessage" style="color:red;">Error</h2>
+            <button id="errorOk" style="margin-top:1rem;">OK</button>
+        </div>
+    </div>
+
+
+    <section class="page">
+        <h1 style="text-align: center; margin-bottom: 2rem;">Delivery Dashboard</h1>
+
+        <!-- ACTIVE -->
+        <h2 style="color: var(--status-active);">My Active Delivery</h2>
+        <div id="activeOrders" class="order-list">
+            <p
+                style="text-align:center; color:var(--text-muted); padding: 1rem; background: var(--bg-card); border-radius:12px;">
+                No active delivery</p>
+        </div>
+
+        <hr style="border: 0; border-top: 1px solid var(--border-light); margin: 2rem 0;">
+
+        <!-- AVAILABLE -->
+        <h2>Available Orders (Ready to Accept)</h2>
+        <div id="availableOrders" class="order-list">
+            <p style="text-align:center; color:var(--text-muted);">Loading available orders...</p>
+        </div>
+
+    </section>
+
+    <!-- delivery JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

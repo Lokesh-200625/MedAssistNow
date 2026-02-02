@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History - Delivery Partner</title>
+    <link rel="stylesheet" href="/delivery/style.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">medAssistNow</div>
+        <ul class="nav-menu">
+            <li><a href="index.html">🏠 Home</a></li>
+            <li><a href="/delivery/earnings.html">💲 Earnings</a></li>
+            <li><a href="/delivery/history.html" class="active">📜 History</a></li>
+            <li><a id="logoutBtn" class="logout-btn">📦 Logout</a></li>
+        </ul>
+    </nav>
+
+    <!-- LOGOUT POPUP -->
+    <div id="logoutConfirmBox" class="confirm-box">
+        <div class="confirm-content">
+            <h2>Are you sure you want to logout?</h2>
+            <div class="confirm-buttons" style="margin-top:1rem;">
+                <button id="confirmLogoutYes" style="background:var(--primary); color:white;">Yes</button>
+                <button id="confirmLogoutNo" style="background:var(--border-light); color:black;">No</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="errorPopup" class="confirm-box">
+        <div class="confirm-content">
+            <h2 id="errorMessage" style="color:red;">Error</h2>
+            <button id="errorOk" style="margin-top:1rem;">OK</button>
+        </div>
+    </div>
+
+
+    <section class="page">
+        <h1 style="text-align: center; margin-bottom: 2rem;">Delivered Orders</h1>
+        <div id="historyList" class="order-list"></div>
+    </section>
+
+    <script src="/delivery/script.js"></script>
+
+    <script>
+        async function loadDeliveryHistory() {
+            const token = localStorage.getItem("token");
+
+            const res = await fetch("/api/order/history/delivery", {
+                headers: { "Authorization": "Bearer " + token }
+            });
+
+            const data = await res.json();
+            const container = document.getElementById("historyList");
+
+            if (!data.length) {
+                container.innerHTML = `
+            <div style="text-align:center; padding:3rem; color:var(--text-muted);">
+                <div style="font-size:3rem; margin-bottom:1rem;">📜</div>
+                <p>No delivered orders yet.</p>
+            </div>`;
+                return;
+            }
+
+            container.innerHTML = data.map(o => `
+        <div class="order-card">
+            <div style="display:flex; justify-content:space-between; margin-bottom:1rem; border-bottom:1px solid var(--border-light); padding-bottom:0.5rem;">
+                <h3 style="margin:0;">Order #${o._id.slice(-6).toUpperCase()}</h3>
+                <span style="color:var(--status-done); font-weight:bold; text-transform:uppercase;">${o.status.replace(/-/g, ' ')}</span>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem; margin-bottom:1rem;">
+                 <div>
+                    <small style="color:var(--text-muted); display:block;">Delivered At</small>
+                    <span style="font-weight:500;">${o.deliveredAt ? new Date(o.deliveredAt).toLocaleString() : "-"}</span>
+                 </div>
+                 <div>
+                    <small style="color:var(--text-muted); display:block;">Earnings</small>
+                    <span style="font-weight:500; color:var(--status-active);">₹${(o.totalEarning || 0).toFixed(2)}</span>
+                 </div>
+            </div>
+
+            <div style="background:var(--bg-body); padding:0.75rem; border-radius:var(--radius-sm); margin-bottom:1rem;">
+                <small style="color:var(--text-muted); display:block; margin-bottom:0.25rem;">Delivery Location</small>
+                <div style="font-size:0.9rem;">${o.userAddress || "Location N/A"}</div>
+            </div>
+            
+            <ul style="border-top:1px dashed var(--border-light); padding-top:0.5rem;">
+                ${o.items.map(i => `<li style="display:flex; justify-content:space-between; padding:0.25rem 0;">
+                    <span>${i.medicineName} <small>x${i.quantity}</small></span>
+                </li>`).join("")}
+            </ul>
+        </div>
+    `).join("");
+        }
+
+        window.addEventListener("DOMContentLoaded", loadDeliveryHistory);
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Orders - Pharmacy Portal</title>
+    <link rel="stylesheet" href="/pharmacist/style.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">Pharmacy Portal</div>
+        <ul class="nav-menu">
+            <li><a href="/pharmacist/index.html">🏠 Home</a></li>
+            <li><a href="/pharmacist/search.html">🔍 Search</a></li>
+            <li><a href="/pharmacist/add-stock.html">📦 Add Stock</a></li>
+            <li><a href="/pharmacist/orders.html" class="active">🛒 Orders</a></li>
+            <li><a href="/pharmacist/performance.html">📈 Performance</a></li>
+            <li><a id="logoutBtn" class="login-btn" style="display:none;"><span>🚪</span> Logout</a></li>
+        </ul>
+    </nav>
+
+    <!-- LOGOUT POPUP -->
+    <div id="logoutConfirmBox" class="confirm-box">
+        <div class="confirm-content">
+            <h2>Are you sure you want to logout?</h2>
+            <div class="confirm-buttons" style="margin-top:1rem;">
+                <button id="confirmLogoutYes" style="background:var(--primary); color:white;">Yes</button>
+                <button id="confirmLogoutNo" style="background:var(--border-light); color:black;">No</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="errorPopup" class="confirm-box">
+        <div class="confirm-content">
+            <h2 id="errorMessage" style="color:red;">Error</h2>
+            <button id="errorOk" style="margin-top:1rem;">OK</button>
+        </div>
+    </div>
+
+
+    <section class="page">
+        <h1 style="text-align: center; margin-bottom: 2rem;">Incoming Orders</h1>
+
+        <div id="orderContainer" class="order-list">
+            <p style="text-align:center; color:var(--text-muted);">Loading orders...</p>
+        </div>
+    </section>
+
+    <!-- Ensure order-script runs AFTER main script/DOM-load if it depends on it, but here it seems standaloneish -->
+    <script src="/pharmacist/script.js"></script>
+    <script src="/pharmacist/order-script.js"></script>
+</body>
+
+</html>

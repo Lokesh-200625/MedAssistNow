@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance - Pharmacy Portal</title>
+    <link rel="stylesheet" href="/pharmacist/style.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">Pharmacy Portal</div>
+        <ul class="nav-menu">
+            <li><a href="/pharmacist/index.html">🏠 Home</a></li>
+            <li><a href="/pharmacist/search.html">🔍 Search</a></li>
+            <li><a href="/pharmacist/add-stock.html">📦 Add Stock</a></li>
+            <li><a href="/pharmacist/orders.html">🛒 Orders</a></li>
+            <li><a href="/pharmacist/performance.html" class="active">📈 Performance</a></li>
+            <li><a id="logoutBtn" class="login-btn" style="display:none;"><span>🚪</span> Logout</a></li>
+        </ul>
+    </nav>
+
+    <!-- LOGOUT POPUP -->
+    <div id="logoutConfirmBox" class="confirm-box">
+        <div class="confirm-content">
+            <h2>Are you sure you want to logout?</h2>
+            <div class="confirm-buttons" style="margin-top:1rem;">
+                <button id="confirmLogoutYes" style="background:var(--primary); color:white;">Yes</button>
+                <button id="confirmLogoutNo" style="background:var(--border-light); color:black;">No</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="errorPopup" class="confirm-box">
+        <div class="confirm-content">
+            <h2 id="errorMessage" style="color:red;">Error</h2>
+            <button id="errorOk" style="margin-top:1rem;">OK</button>
+        </div>
+    </div>
+
+
+    <section class="page">
+        <h1 style="text-align: center; margin-bottom: 2rem;">Performance Dashboard</h1>
+
+        <div class="product-grid">
+            <div class="product-card" style="text-align: center; padding: 2rem;">
+                <div id="totalSales" style="font-size: 2.5rem; color: var(--primary);">--</div>
+                <h3>Total Sales Today</h3>
+            </div>
+
+            <div class="product-card" style="text-align: center; padding: 2rem;">
+                <div id="pendingOrders" style="font-size: 2.5rem; color: var(--status-pending);">--</div>
+                <h3>Pending Orders</h3>
+            </div>
+
+            <div class="product-card" style="text-align: center; padding: 2rem;">
+                <div id="topSelling" style="font-size: 1.5rem; color: var(--primary-dark); margin-bottom: 0.5rem;">--
+                </div>
+                <h3>Top Selling</h3>
+            </div>
+        </div>
+
+        <script>
+            async function loadAnalytics() {
+                try {
+                    const token = localStorage.getItem("token");
+                    if (!token) return;
+
+                    const res = await fetch("/api/order/analytics/pharmacy", {
+                        headers: { "Authorization": "Bearer " + token }
+                    });
+                    const data = await res.json();
+
+                    document.getElementById("totalSales").innerText = "₹" + (data.totalSales || 0);
+                    document.getElementById("pendingOrders").innerText = data.pendingOrders || 0;
+                    document.getElementById("topSelling").innerText = data.topSelling || "N/A";
+                } catch (e) {
+                    console.error("Analytics fetch error:", e);
+                }
+            }
+            window.addEventListener("DOMContentLoaded", loadAnalytics);
+        </script>
+    </section>
+
+    <script src="/pharmacist/script.js"></script>
+</body>
+
+</html>

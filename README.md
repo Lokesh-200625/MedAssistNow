@@ -204,5 +204,5 @@ It reflects practical system design thinking beyond CRUD-based applications.
 - Lokesh Nadigoti 
 - Zahid Hussain
 - Thrivikram
-Computer Science Students
-Interested in Distributed Systems, Backend Engineering & Machine Learning
+\nComputer Science Students
+\nInterested in Distributed Systems, Backend Engineering & Machine Learning

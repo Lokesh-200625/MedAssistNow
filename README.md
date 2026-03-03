@@ -199,8 +199,10 @@ Mobile application version
 This project demonstrates production-level backend engineering by integrating caching, asynchronous messaging, search indexing, and observability into a fully containerized distributed system.
 It reflects practical system design thinking beyond CRUD-based applications.
 
-# 👨‍💻 Author
+# 👨‍💻 Authors
 
-Lokesh Nadigoti
-Computer Science Student
+Lokesh Nadigoti 
+Zahid Hussain
+Thrivikram
+Computer Science Students
 Interested in Distributed Systems, Backend Engineering & Machine Learning

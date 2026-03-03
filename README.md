@@ -201,8 +201,8 @@ It reflects practical system design thinking beyond CRUD-based applications.
 
 # 👨‍💻 Authors
 
-Lokesh Nadigoti 
-Zahid Hussain
-Thrivikram
+- Lokesh Nadigoti 
+- Zahid Hussain
+- Thrivikram
 Computer Science Students
 Interested in Distributed Systems, Backend Engineering & Machine Learning
